@@ -44,7 +44,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>fully.qualified.MainClass</mainClass>
+							<mainClass>com.ken.reportGenerator.ReportGenerator</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>
