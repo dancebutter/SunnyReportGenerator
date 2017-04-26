@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Sunny Report Generator</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+	<!-- jQuery -->
+	<script
+	  src="https://code.jquery.com/jquery-1.12.4.min.js"
+	  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+	  crossorigin="anonymous"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<!-- AngularJs from CDN -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script> -->
+	<!-- xlsx reader -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.9.7/xlsx.full.min.js"></script>
+	<!-- AngularJs xlsx -->
+	<script src="openSource/angular-js-xlsx/angular-js-xlsx.js"></script>
+	<script src="js/main.js"></script>
+
+</head>
+<body ng-app="myApp">
+	<div class="container" data-ng-controller="myCtrl">
+		<!-- Header -->
+		<div class="header clearfix">
+			<nav>
+				<ul class="nav nav-pills pull-right">
+					<!-- <li role="presentation" class="active"><a href="#">Home</a></li> -->
+					<!-- <li role="presentation"><a href="#">About</a></li>
+					<li role="presentation"><a href="#">Contact</a></li> -->
+				</ul>
+			</nav>
+			<h3 class="text-muted">Sunny Report Genrator</h3>
+		</div>
+		<!-- Main Part -->
+		<hr>
+		<!-- Excel Upload -->
+		<div class="col-md-12">
+			<js-xls onread="read" onerror="error"></js-xls>
+		</div>
+		<ul class="nav nav-tabs">
+			<li data-ng-repeat="(key, value) in tags"
+				data-ng-click="clickTag(value)"
+				class="{{value.actived}}">
+				<a>{{value.name}}</a>
+			</li>
+		</ul>
+		<div class="row">
+			<!-- List of Templates -->
+			<div class="col-md-12" data-ng-show="tags[0].visible">
+				<!-- Trigger the modal with a button -->
+				<button type="button"
+					class="btn btn-info btn-lg"
+					data-toggle="modal"
+					data-target="#myModal">
+					Open Modal
+				</button>
+				<!-- Modal -->
+				<div class="modal fade" id="myModal" role="dialog">
+					<div class="modal-dialog">
+					<!-- Modal content-->
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Modal Header</h4>
+							</div>
+							<div class="modal-body">
+								<p>Some text in the modal.</p>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12" data-ng-repeat="(grade, template) in reportTemplates">
+				</div>
+			</div>
+			<!-- List of Reports -->
+			<div class="col-md-12" data-ng-show="tags[1].visible">
+				<table class="table">
+					<tr>
+						<th>#</th>
+						<th>Name</th>
+						<th>Gender</th>
+						<th>Grade</th>
+					</tr>
+					<tr ng-repeat="item in jsonSheet">
+						<td>{{$index}}</td>
+						<td>{{item.name}}</td>
+						<td>{{item.gender}}</td>
+						<td>{{item.grade}}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

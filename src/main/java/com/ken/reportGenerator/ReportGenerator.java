@@ -19,6 +19,8 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
+import static spark.Spark.*;
+
 public class ReportGenerator {
 	final static String REPORT_PROP_NAME = "report.properties"; // settings for whole program
 	final static String TEMPLATE_PROP_NAME = "temp.properties";	// list of template report map
@@ -31,6 +33,9 @@ public class ReportGenerator {
 	static Gender female;
 	static Map<String, TemplateReport> tempMap;
 	
+	/**
+	 * intial gender instances
+	 */
 	private static void init() {
 		// initial gender instances
 		male = new Gender("m");
@@ -64,6 +69,14 @@ public class ReportGenerator {
 		}
 	}
 	
+	public static void main(String[] args) {
+		
+		staticFiles.location("/public");
+		
+		
+		get("/test", (req, res) -> "Test");
+	}
+	/*
 	public static void main(String[] args) {
 		// initial all important instances
 		init();
@@ -152,4 +165,6 @@ public class ReportGenerator {
 		PopupMessage.infoBox(message, "Result");
 		
 	}
+	*/
+	
 }
